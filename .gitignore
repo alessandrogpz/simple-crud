@@ -1,4 +1,7 @@
 .vscode/**
+.bin/**
+.user_database/**
+.documentation/**
 
 # Local History for Visual Studio Code
 .history/
