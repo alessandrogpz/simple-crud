@@ -1,7 +1,11 @@
 .vscode/**
-bin/**
-user_database/**
-documentation/**
+
+# exclude everything
+bin/*
+user_database/*
+# exception to the rule
+!bin/.gitkeep 
+!user_database/.gitkeep 
 
 # Local History for Visual Studio Code
 .history/
