@@ -1,6 +1,5 @@
-#include "../headers/read.h"
-#include "../headers/write.h"
-#include "../headers/users.h"
+#include "../headers/login.h"
+#include "../headers/password.h"
 
 int main(int argc, char *argv[])
 {
@@ -16,20 +15,14 @@ int main(int argc, char *argv[])
 
     // -----------------------------------
 
-    // WriteOnFileTest(filename);
-    // ReadFile(filename);
+    // std::cout << "Content: ";
+    // std::cin >> content;
 
-    std::string username;
-    std::string content;
-    std::string foldername = {"../user_database/"};
+    UserLogIn();
+    //  option menu
 
-    std::cout << "Username: ";
-    std::cin >> username;
-    std::cout << "Content: ";
-    std::cin >> content;
-
-    WriteOnFile(foldername + username, content);
-    ReadFile(foldername + username);
+    // WriteOnFile(foldername + username, content);
+    // ReadFile(foldername + username);
 
     // ----------------------------------
 

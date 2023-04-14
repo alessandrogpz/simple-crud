@@ -1,10 +1,10 @@
 #include "../headers/password.h"
 
+std::string password = "0";
+std::string r_password = "1";
+
 std::string SetPassword()
 {
-    std::string password{"0"};
-    std::string r_password{"1"};
-
     while (password != r_password)
     {
         std::cout << "New password: ";
