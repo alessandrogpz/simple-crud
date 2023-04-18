@@ -2,11 +2,38 @@ g++
 while inside source folder, type:
 g++ main.cpp read.cpp users.cpp write.cpp <other-.cpp-files> -o ../bin/<program-name>
 
+--------------------------------------------------------------------------------------
+
 makefile:
 You can create a Makefile to automate the compilation process for your project. 
 A Makefile is a special file that contains rules for how to build your program from its source code. 
 It allows you to specify dependencies between your source files and the executable file, 
 and it automates the build process by running the compiler and linker commands for you.
+
+CXX = g++
+CXXFLAGS = -Wall -Wextra -std=c++11
+LDFLAGS =
+
+SRCDIR = src
+OBJDIR = obj
+BINDIR = bin
+
+SRCS = $(wildcard $(SRCDIR)/*.cpp)
+OBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
+TARGET = $(BINDIR)/myprogram
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) $(LDFLAGS) $^ -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS) $(TARGET)
+
+.PHONY: all clean
 
 Here's a brief explanation of what each section does:
 
@@ -25,3 +52,5 @@ The .PHONY target lists all of the targets that don't actually build files.
 To use this Makefile, save it to a file called Makefile in the root directory of your project. Then, run the command make to build your program. The make command will automatically compile all of your source files and link them together into an executable file called myprogram in the bin directory.
 
 If you add new source files to your project, you just need to update the SRCS variable in the Makefile and run make again to rebuild your program.
+
+--------------------------------------------------------------------------------------
