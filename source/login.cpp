@@ -21,12 +21,13 @@ void UserLogIn()
     std::cout << "Username: ";
     std::cin >> username;
 
-    if (UserExists(foldername + username))
+    if (UserExists(foldername + username + ".txt"))
     {
-        // type password
+        std::cout << "This username is not available:" << std::endl;
     }
     else
     {
+        std::cout << foldername + username + ".txt" << std::endl;
         std::cout << "Would you like to create a new account as \"" << username << "\" ? ( y / n ): ";
         std::cin >> createAccount;
 
