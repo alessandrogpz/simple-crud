@@ -1,7 +1,8 @@
 #include "../headers/login.h"
 #include "../headers/password.h"
+#include "../headers/login_or_signup.h"
 
-int main(int argc, char *argv[])
+int main(/*int argc, char *argv[]*/)
 {
 
     // Check to see if the arguments were correctly passed
@@ -18,7 +19,16 @@ int main(int argc, char *argv[])
     // std::cout << "Content: ";
     // std::cin >> content;
 
-    UserLogIn();
+    int mainMenuOption = logInOrSignUp();
+
+    if (mainMenuOption == 1)
+    {
+        UserLogIn();
+    }
+    else if (mainMenuOption == 2)
+    {
+        // SignUp()
+    };
     //  option menu
 
     // WriteOnFile(foldername + username, content);

@@ -1,40 +1,23 @@
 #include "../headers/login.h"
-#include "../headers/users.h"
-#include "../headers/signup.h"
 #include "../headers/password.h"
-
-std::string foldername = "../user_database/";
-std::string username;
-std::string content;
-std::string createAccount;
-
-// Checks if file already exists
-bool UserExists(const std::string &filename)
-{
-    std::ifstream infile(filename);
-    return infile.good();
-}
+#include "../headers/checks.h"
+#include "../headers/user_data.h"
 
 void UserLogIn()
 {
+    extern std::string username;
 
     std::cout << "Username: ";
     std::cin >> username;
-
-    if (UserExists(foldername + username + ".txt"))
+    // Log in
     {
-        std::cout << "This username is not available:" << std::endl;
-    }
-    else
-    {
-        std::cout << foldername + username + ".txt" << std::endl;
-        std::cout << "Would you like to create a new account as \"" << username << "\" ? ( y / n ): ";
-        std::cin >> createAccount;
-
-        if (createAccount == "y")
+        if (!(UserExists(foldername + username + ".txt")))
         {
-            getUserInfo();
-            User usr(username, firstName, lastName, age, eMail);
+            std::cout << "This username does not exist." << std::endl;
+        }
+        else
+        {
+            // password()
         }
     }
 }

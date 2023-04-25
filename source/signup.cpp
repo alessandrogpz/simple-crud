@@ -1,4 +1,7 @@
 #include "../headers/signup.h"
+#include "../headers/checks.h"
+#include "../headers/user_data.h"
+#include "../headers/users.h"
 
 void getUserInfo()
 {
@@ -96,4 +99,32 @@ std::string getValidEmail(std::string prompt)
         }
     }
     return email;
+}
+
+void UserSignUp()
+{
+    // Sign up
+    {
+        extern std::string foldername;
+        extern std::string username;
+        extern std::string createAccount;
+        extern std::string username;
+
+        if (UserExists(foldername + username + ".txt"))
+        {
+            std::cout << "This username is not available." << std::endl;
+        }
+        else
+        {
+            std::cout << foldername + username + ".txt" << std::endl;
+            std::cout << "Would you like to create a new account as \"" << username << "\" ? ( y / n ): ";
+            std::cin >> createAccount;
+
+            if (createAccount == "y")
+            {
+                getUserInfo();
+                User usr(username, firstName, lastName, age, eMail);
+            }
+        }
+    }
 }

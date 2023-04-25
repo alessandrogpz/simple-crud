@@ -16,3 +16,4 @@ int getValidInt(std::string prompt);
 std::string getValidStringLettersOnly(std::string prompt);
 bool isValidEmail(const std::string &email);
 std::string getValidEmail(std::string prompt);
+void UserSignUp();

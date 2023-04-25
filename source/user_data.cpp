@@ -4,3 +4,8 @@ std::string firstName;
 std::string lastName;
 int age;
 std::string eMail;
+
+std::string foldername = "../user_database/";
+std::string username;
+std::string content;
+std::string createAccount;
