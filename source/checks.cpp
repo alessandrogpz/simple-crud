@@ -1,4 +1,5 @@
 #include "../headers/checks.h"
+#include "../headers/password.h"
 
 // Checks if file already exists
 bool CheckIfUserExists(const std::string &filename)
@@ -15,3 +16,8 @@ bool isValidEmail(const std::string &email)
     // Check if the email matches the pattern
     return std::regex_match(email, pattern);
 }
+
+// bool authenticate(const std::string &password)
+// {
+//     return hashPassword(password) == hashedPassword;
+//

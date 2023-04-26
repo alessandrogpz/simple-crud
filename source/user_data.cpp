@@ -7,5 +7,6 @@ std::string eMail;
 
 std::string foldername = "../user_database/";
 std::string username;
+std::string password;
 std::string content;
 std::string createAccount;

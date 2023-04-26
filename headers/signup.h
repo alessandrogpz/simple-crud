@@ -14,6 +14,7 @@ extern std::string eMail;
 void UserSignUp();
 extern std::string foldername;
 extern std::string username;
+extern std::string password;
 extern std::string createAccount;
 extern std::string username;
 

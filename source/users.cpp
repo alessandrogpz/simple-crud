@@ -4,9 +4,10 @@
 #include "../headers/login.h"
 
 // Constructor definition for User
-User::User(std::string username, std::string firstName, std::string lastName, int age, std::string eMail, std::string role)
+User::User(std::string username, std::string hashPassword, std::string firstName, std::string lastName, int age, std::string eMail, std::string role)
 {
     this->username = username;
+    this->hashPassword = hashPassword;
     this->firstName = firstName;
     this->lastName = lastName;
     this->age = age;
@@ -16,6 +17,7 @@ User::User(std::string username, std::string firstName, std::string lastName, in
     // Write user information to file
     std::string filename = username + ".txt";
     std::string content = "Username: " + GetUsername() + "\n" +
+                          "Password: " + GetPassword() + "\n" +
                           "Name: " + GetName() + "\n" +
                           "Age: " + std::to_string(GetAge()) + "\n" +
                           "Email: " + eMail + "\n" +
@@ -28,6 +30,11 @@ User::User(std::string username, std::string firstName, std::string lastName, in
 std::string User::GetUsername()
 {
     return username;
+}
+
+std::string User::GetPassword()
+{
+    return hashPassword;
 }
 
 std::string User::GetName()
@@ -72,7 +79,7 @@ void User::SetRole(std::string role)
 }
 
 // Constructor definition for Admin
-Admin::Admin(std::string firstName, int age) : User("", firstName, "", age, "", "")
+Admin::Admin(std::string firstName, int age) : User("", "", firstName, "", age, "", "")
 {
     SetRole("Admin");
 }

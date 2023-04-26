@@ -1,4 +1,5 @@
 #include "../headers/read.h"
+#include "../headers/user_data.h"
 
 int ReadFile(std::string filename)
 {
@@ -24,4 +25,28 @@ int ReadFile(std::string filename)
     input.close();
 
     return 0;
+}
+
+std::string readCurrentHashPassword(std::string filename)
+{
+
+    // Open input file for reading
+    std::ifstream file(filename);
+
+    // Find the line with the password in the file
+    std::string line;
+    while (std::getline(file, line))
+    {
+        if (line.find("Password:") != std::string::npos)
+        {
+            // Extract the password from the line
+            std::string password = line.substr(line.find(":") + 2);
+
+            return password;
+        }
+    }
+
+    // Password not found
+    std::cout << "Password not found.";
+    return "";
 }

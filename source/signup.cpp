@@ -2,9 +2,11 @@
 #include "../headers/checks.h"
 #include "../headers/user_data.h"
 #include "../headers/users.h"
+#include "../headers/password.h"
 
 void getUserInfo()
 {
+    password = hashPassword(setPassword());
     firstName = getValidStringLettersOnly("What is your first name?: ");
     lastName = getValidStringLettersOnly("what is your last name?: ");
     age = getValidInt("Waht is your age? ");
@@ -108,6 +110,6 @@ void UserSignUp()
         }
 
         getUserInfo();
-        User usr(username, firstName, lastName, age, eMail); // Create user
+        User usr(username, password, firstName, lastName, age, eMail); // Create user
     }
 }

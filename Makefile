@@ -1,6 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++11
-LDFLAGS =
+LDFLAGS = -L/usr/lib/x86_64-linux-gnu
+LDLIBS = -lssl -lcrypto
 
 SRCDIR = source
 OBJDIR = obj
@@ -13,7 +14,7 @@ TARGET = $(BINDIR)/build
 all: $(TARGET)
 
 $(TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) $^ -o $@
+	$(CXX) $^ $(LDLIBS) $(LDFLAGS) -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@

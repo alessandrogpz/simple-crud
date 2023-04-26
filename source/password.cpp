@@ -1,26 +1,40 @@
 #include "../headers/password.h"
 
-std::string password = "0";
-std::string r_password = "1";
-
-std::string SetPassword()
+std::string setPassword()
 {
-    while (password != r_password)
-    {
-        std::cout << "New password: ";
-        std::cin >> password;
-        std::cout << "Repeat password: ";
-        std::cin >> r_password;
+    std::string password, confirmPassword;
+    bool match = false;
 
-        if (password == r_password)
+    do
+    {
+        std::cout << "Set your password: ";
+        std::cin >> password;
+
+        std::cout << "Confirm your password: ";
+        std::cin >> confirmPassword;
+
+        if (password == confirmPassword)
         {
-            return password + "\n";
+            match = true;
+            std::cout << "Password set successfully!" << std::endl;
         }
         else
         {
-            std::cout << "Password must match. Try again.\n";
+            std::cout << "Passwords do not match. Please try again." << std::endl;
         }
-    }
 
-    return ""; // handle the case when the while loop is never executed
+    } while (!match);
+
+    return password;
+}
+
+std::string hashPassword(const std::string &password)
+{
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256_CTX sha256;
+    SHA256_Init(&sha256);
+    SHA256_Update(&sha256, password.c_str(), password.size());
+    SHA256_Final(hash, &sha256);
+    std::string hashedPassword((char *)hash, SHA256_DIGEST_LENGTH);
+    return hashedPassword;
 }

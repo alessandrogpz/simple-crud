@@ -8,15 +8,17 @@ class User
 {
 public:
     // Constructor
-    User(std::string username, std::string firstName, std::string lastName, int age, std::string eMail, std::string role = "User");
+    User(std::string username, std::string hashPassword, std::string firstName, std::string lastName, int age, std::string eMail, std::string role = "User");
 
     std::string GetUsername();
     std::string GetName();
     int GetAge();
     std::string GetRole();
+    std::string GetPassword();
 
 private:
     std::string username;
+    std::string hashPassword;
     std::string firstName;
     std::string lastName;
     int age;
