@@ -24,7 +24,7 @@ private:
     std::string role;
 
 protected:
-    // Getters and Setters
+    // Setters
     void SetFirstName(std::string firstName);
     void SetLastName(std::string lastName);
     void SetAge(int age);

@@ -4,16 +4,20 @@
 #include <string>
 #include <limits>
 #include <cctype>
-#include <regex>
-
-extern int age;
-extern std::string firstName;
-extern std::string lastName;
-extern std::string eMail;
 
 void getUserInfo();
+extern std::string firstName;
+extern std::string lastName;
+extern int age;
+extern std::string eMail;
+
+void UserSignUp();
+extern std::string foldername;
+extern std::string username;
+extern std::string createAccount;
+extern std::string username;
+
 int getValidInt(std::string prompt);
 std::string getValidStringLettersOnly(std::string prompt);
 bool isValidEmail(const std::string &email);
 std::string getValidEmail(std::string prompt);
-void UserSignUp();

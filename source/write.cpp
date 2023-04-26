@@ -1,26 +1,5 @@
 #include "../headers/write.h"
 
-int WriteOnFileTest(std::string filename)
-{
-    // Open input file for writing
-    std::ofstream outfile(filename);
-
-    // Check if the file was opened successfully
-    if (!outfile.is_open())
-    {
-        std::cout << "Error opening file for writing " << filename << std::endl;
-        return 1;
-    }
-
-    // Write some data to the file
-    outfile << "Hello, file!" << std::endl;
-
-    // Close input file
-    outfile.close();
-
-    return 0;
-}
-
 int CreateUserFile(std::string filename, std::string content)
 {
 

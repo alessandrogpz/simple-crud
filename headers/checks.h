@@ -3,5 +3,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <regex>
 
-bool UserExists(const std::string &filename);
+bool CheckIfUserExists(const std::string &filename);
+bool isValidEmail(const std::string &email);

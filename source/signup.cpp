@@ -69,15 +69,6 @@ std::string getValidStringLettersOnly(std::string prompt)
     return input;
 }
 
-bool isValidEmail(const std::string &email)
-{
-    // Regular expression for a valid email address
-    const std::regex pattern(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
-
-    // Check if the email matches the pattern
-    return std::regex_match(email, pattern);
-}
-
 std::string getValidEmail(std::string prompt)
 {
     std::string email;
@@ -105,26 +96,18 @@ void UserSignUp()
 {
     // Sign up
     {
-        extern std::string foldername;
-        extern std::string username;
-        extern std::string createAccount;
-        extern std::string username;
+        std::cout << "Username: ";
+        std::cin >> username;
 
-        if (UserExists(foldername + username + ".txt"))
+        while (CheckIfUserExists(foldername + username + ".txt"))
         {
             std::cout << "This username is not available." << std::endl;
-        }
-        else
-        {
-            std::cout << foldername + username + ".txt" << std::endl;
-            std::cout << "Would you like to create a new account as \"" << username << "\" ? ( y / n ): ";
-            std::cin >> createAccount;
 
-            if (createAccount == "y")
-            {
-                getUserInfo();
-                User usr(username, firstName, lastName, age, eMail);
-            }
+            std::cout << "Username: ";
+            std::cin >> username;
         }
+
+        getUserInfo();
+        User usr(username, firstName, lastName, age, eMail); // Create user
     }
 }

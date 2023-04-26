@@ -3,7 +3,8 @@
 #include <iostream>
 #include <fstream>
 
+extern std::string username;
 extern std::string foldername;
 
-bool UserExists(const std::string &filename);
+bool CheckIfUserExists(const std::string &filename);
 void UserLogIn();

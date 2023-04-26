@@ -1,4 +1,5 @@
 #include "../headers/login.h"
+#include "../headers/signup.h"
 #include "../headers/password.h"
 #include "../headers/login_or_signup.h"
 
@@ -16,9 +17,6 @@ int main(/*int argc, char *argv[]*/)
 
     // -----------------------------------
 
-    // std::cout << "Content: ";
-    // std::cin >> content;
-
     int mainMenuOption = logInOrSignUp();
 
     if (mainMenuOption == 1)
@@ -27,27 +25,8 @@ int main(/*int argc, char *argv[]*/)
     }
     else if (mainMenuOption == 2)
     {
-        // SignUp()
+        UserSignUp();
     };
-    //  option menu
 
-    // WriteOnFile(foldername + username, content);
-    // ReadFile(foldername + username);
-
-    // ----------------------------------
-
-    // User usr("John", 30);
-    // std::cout << usr.GetName() << usr.GetAge() << usr.GetRole() << std::endl;
-
-    // Admin adm("Sahra", 15);
-    // std::cout << adm.GetName() << adm.GetAge() << adm.GetRole() << std::endl;
-
-    // usr.name = "Any";
-    // adm.name = "Lilly";
-
-    // usr.role = "Adm";
-
-    // std::cout << usr.GetName() << usr.GetAge() << usr.GetRole() << std::endl;
-    // std::cout << adm.GetName() << adm.GetAge() << adm.GetRole() << std::endl;
-    // return 0;
+    return 0;
 }

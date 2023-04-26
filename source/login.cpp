@@ -5,13 +5,11 @@
 
 void UserLogIn()
 {
-    extern std::string username;
-
     std::cout << "Username: ";
     std::cin >> username;
     // Log in
     {
-        if (!(UserExists(foldername + username + ".txt")))
+        if (!(CheckIfUserExists(foldername + username + ".txt")))
         {
             std::cout << "This username does not exist." << std::endl;
         }
