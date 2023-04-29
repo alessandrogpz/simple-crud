@@ -10,3 +10,4 @@ std::string username;
 std::string password;
 std::string content;
 std::string createAccount;
+std::string filename = foldername + username + ".txt";

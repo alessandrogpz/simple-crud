@@ -1,7 +1,7 @@
 #include "../headers/login.h"
 #include "../headers/signup.h"
 #include "../headers/password.h"
-#include "../headers/login_or_signup.h"
+#include "../headers/menu_options.h"
 #include "../headers/read.h"
 
 int main(/*int argc, char *argv[]*/)
@@ -17,9 +17,6 @@ int main(/*int argc, char *argv[]*/)
     // std::string filename = argv[1];
 
     // -----------------------------------
-
-    std::string test = readCurrentHashPassword("../user_database/abc.txt"); // change parameter to accept the corrensponding user password
-    std::cout << test << std::endl;
 
     int mainMenuOption = logInOrSignUp();
 

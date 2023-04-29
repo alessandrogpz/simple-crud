@@ -20,7 +20,6 @@ int getValidInt(std::string prompt)
     int num;
     while (true)
     {
-        std::cout << "Enter an integer: ";
         std::cin >> num;
         if (std::cin.fail())
         {
@@ -96,20 +95,21 @@ std::string getValidEmail(std::string prompt)
 
 void UserSignUp()
 {
-    // Sign up
+    // Sign up new user
     {
         std::cout << "Username: ";
         std::cin >> username;
 
         while (CheckIfUserExists(foldername + username + ".txt"))
         {
-            std::cout << "This username is not available." << std::endl;
+            std::cout << "This username is not available. Try another." << std::endl;
 
             std::cout << "Username: ";
             std::cin >> username;
         }
 
+        // Create new user
         getUserInfo();
-        User usr(username, password, firstName, lastName, age, eMail); // Create user
+        User usr(username, password, firstName, lastName, age, eMail);
     }
 }
