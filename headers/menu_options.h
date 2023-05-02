@@ -4,4 +4,4 @@
 
 int logInOrSignUp();
 void exitOrContinueProgram();
-int writeOrRead();
+int writeReadOrDelete();

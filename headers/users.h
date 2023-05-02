@@ -16,6 +16,9 @@ public:
     std::string GetRole();
     std::string GetPassword();
 
+    // Desructor
+    ~User();
+
 private:
     std::string username;
     std::string hashPassword;
@@ -24,6 +27,7 @@ private:
     int age;
     std::string eMail;
     std::string role;
+    bool loggedIn = false;
 
 protected:
     // Setters

@@ -3,6 +3,7 @@
 #include "../headers/password.h"
 #include "../headers/menu_options.h"
 #include "../headers/read.h"
+#include "../headers/write.h"
 
 int main(/*int argc, char *argv[]*/)
 {
@@ -18,16 +19,24 @@ int main(/*int argc, char *argv[]*/)
 
     // -----------------------------------
 
-    int mainMenuOption = logInOrSignUp();
-
-    if (mainMenuOption == 1)
+    while (true)
     {
-        UserLogIn();
+        int mainMenuOption = logInOrSignUp();
+
+        if (mainMenuOption == 1)
+        {
+            UserLogIn();
+            writeReadOrDelete();
+
+            // append
+            // content
+            // append
+            AppendOnFile(foldername + username + ".txt");
+        }
+        else if (mainMenuOption == 2)
+        {
+            UserSignUp();
+        };
     }
-    else if (mainMenuOption == 2)
-    {
-        UserSignUp();
-    };
-
     return 0;
 }

@@ -24,6 +24,17 @@ User::User(std::string username, std::string hashPassword, std::string firstName
                           "Role: " + GetRole() + "\n";
 
     CreateUserFile(foldername + filename, content);
+
+    loggedIn = true;
+}
+
+// Destructor
+User::~User()
+{
+    std::cout << loggedIn << std::endl;
+    std::cout << "Logging '" + GetUsername() + "' out ..." << std::endl;
+    loggedIn = false;
+    std::cout << loggedIn << std::endl;
 }
 
 // Getters -----------------------------------------

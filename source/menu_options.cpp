@@ -43,14 +43,16 @@ void exitOrContinueProgram()
     }
 }
 
-int writeOrRead()
+int writeReadOrDelete()
 {
     int userChoice;
 
-    std::cout << "Would you like to read or write in your file?" << std::endl;
+    std::cout << "Would you like to do?" << std::endl;
     std::cout << "(1) Read" << std::endl
               << "(2) Write" << std::endl
-              << "Chose and option: ";
+              << "(3) Delete" << std::endl
+              << "(4) Log out" << std::endl
+              << "Chose an option: ";
 
     std::cin >> userChoice;
     return userChoice;
