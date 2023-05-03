@@ -1,7 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include "state_machine.h"
 
-int logInOrSignUp();
-void exitOrContinueProgram();
-int writeReadOrDelete();
+Event logInOrSignUp();
+void invalidInput();
+Event writeReadOrDelete(std::string username);
+void exitProgram();

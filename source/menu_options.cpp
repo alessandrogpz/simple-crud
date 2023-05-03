@@ -1,59 +1,70 @@
 #include "../headers/menu_options.h"
 
-int logInOrSignUp()
+Event logInOrSignUp()
 {
     int userChoice;
 
+    std::cout << "---------------------------------------" << std::endl;
     std::cout << "Welcome to simple_crud!" << std::endl;
     std::cout << "(1) Log in" << std::endl
               << "(2) Sign up" << std::endl
+              << "(3) Exit Program" << std::endl
               << "Chose and option: ";
 
     std::cin >> userChoice;
-    return userChoice;
-}
 
-void exitOrContinueProgram()
-{
-    int userChoice;
-
-    std::cout << "Would you like to:" << std::endl;
-    std::cout << "(1) Continue" << std::endl
-              << "(2) Exit Program" << std::endl
-              << "Chose an option: ";
-
-    while (true)
+    switch (userChoice)
     {
-        std::cin >> userChoice;
-
-        if (userChoice == 1)
-        {
-            std::cout << "Continuing program ..." << std::endl;
-            break;
-        }
-        else if (userChoice == 2)
-        {
-            std::cout << "Exiting program..." << std::endl;
-            exit(0);
-        }
-        else
-        {
-            std::cout << "Invalid input. Try again: ";
-        }
+    case 1:
+        return Event::LOGIN;
+    case 2:
+        return Event::SIGNUP;
+    case 3:
+        return Event::EXIT;
+    default:
+        return Event::INVALID;
     }
 }
 
-int writeReadOrDelete()
+void invalidInput()
+{
+    std::cout << "---------------------------------------" << std::endl;
+    std::cout << "Invalid Input" << std::endl;
+}
+
+Event writeReadOrDelete(std::string username)
 {
     int userChoice;
 
-    std::cout << "Would you like to do?" << std::endl;
+    std::cout << "---------------------------------------" << std::endl;
+    std::cout << "Logged in as: '" + username + "'" << std::endl;
+    std::cout << "What would you like to do?" << std::endl;
     std::cout << "(1) Read" << std::endl
               << "(2) Write" << std::endl
               << "(3) Delete" << std::endl
               << "(4) Log out" << std::endl
-              << "Chose an option: ";
+              << "Choose an option: ";
 
     std::cin >> userChoice;
-    return userChoice;
+
+    switch (userChoice)
+    {
+    case 1:
+        return Event::READ;
+    case 2:
+        return Event::WRITE;
+    case 3:
+        return Event::DELETE;
+    case 4:
+        return Event::LOGOUT;
+    default:
+        return Event::INVALID;
+    }
+}
+
+void exitProgram()
+{
+    std::cout << "---------------------------------------" << std::endl;
+    std::cout << "Exiting program ..." << std::endl;
+    exit(0);
 }

@@ -7,38 +7,40 @@
 
 bool UserLogIn()
 {
-    // Log in attempt.
-    std::cout << "Username: ";
-    std::cin >> username;
+    char confirmation;
 
+    // Check if filename exists and password match.
+
+    while (true)
     {
-        // Check if filename already exists.
-        while (!(CheckIfUserExists(foldername + username + ".txt")))
-        {
-            std::cout << "Username '" + username + "' does not exist." << std::endl;
-            exitOrContinueProgram();
+        // Log in attempt.
+        std::cout << "Username: ";
+        std::cin >> username;
 
-            std::cout << "Username: ";
-            std::cin >> username;
-        }
-
-        // Username exists.
-        // Password autentication attempt for said username.
         std::cout << "Password: ";
         std::cin >> password;
 
-        // Check if stored hashed password match typed password.
-        while (!(passwordAuthenticate(password)))
+        if (!(CheckIfUserExists(foldername + username + ".txt")) || !(passwordAuthenticate(password)))
         {
-            std::cout << "Password do not match." << std::endl;
-            std::cout << "Password: ";
-            std::cin >> password;
-        }
+            std::cout << "---------------------------------------" << std::endl;
+            std::cout << "Username or password do not match" << std::endl;
+            std::cout << "Quit loggin? (y/n) ";
+            std::cin >> confirmation;
 
-        // Password autenticated.
-        // Logging in.
-        std::cout << "Login successfully" << std::endl;
-        std::cout << "Loggin in..." << std::endl;
-        return true;
+            if (confirmation == 'y' || confirmation == 'Y')
+            {
+                return false;
+            }
+        }
+        else
+        {
+            break;
+        }
     }
+
+    // Logging in successful.
+    std::cout << "---------------------------------------" << std::endl;
+    std::cout << "Successful authentication" << std::endl;
+    std::cout << "Loggin in..." << std::endl;
+    return true;
 }

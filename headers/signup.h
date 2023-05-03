@@ -11,7 +11,7 @@ extern std::string lastName;
 extern int age;
 extern std::string eMail;
 
-void UserSignUp();
+bool UserSignUp();
 extern std::string foldername;
 extern std::string username;
 extern std::string password;

@@ -21,9 +21,10 @@ User::User(std::string username, std::string hashPassword, std::string firstName
                           "Name: " + GetName() + "\n" +
                           "Age: " + std::to_string(GetAge()) + "\n" +
                           "Email: " + eMail + "\n" +
-                          "Role: " + GetRole() + "\n";
+                          "Role: " + GetRole() + "\n" +
+                          "Content: \n";
 
-    CreateUserFile(foldername + filename, content);
+    createUserFile(foldername + filename, content);
 
     loggedIn = true;
 }
@@ -31,10 +32,6 @@ User::User(std::string username, std::string hashPassword, std::string firstName
 // Destructor
 User::~User()
 {
-    std::cout << loggedIn << std::endl;
-    std::cout << "Logging '" + GetUsername() + "' out ..." << std::endl;
-    loggedIn = false;
-    std::cout << loggedIn << std::endl;
 }
 
 // Getters -----------------------------------------

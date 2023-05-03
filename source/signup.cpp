@@ -10,7 +10,7 @@ void getUserInfo()
     firstName = getValidStringLettersOnly("What is your first name?: ");
     lastName = getValidStringLettersOnly("what is your last name?: ");
     age = getValidInt("Waht is your age? ");
-    eMail = getValidEmail("What is your e-mail?: ");
+    eMail = hashPassword(getValidEmail("What is your e-mail?: "));
 }
 
 int getValidInt(std::string prompt)
@@ -93,7 +93,7 @@ std::string getValidEmail(std::string prompt)
     return email;
 }
 
-void UserSignUp()
+bool UserSignUp()
 {
     // Sign up new user
     {
@@ -111,5 +111,6 @@ void UserSignUp()
         // Create new user
         getUserInfo();
         User usr(username, password, firstName, lastName, age, eMail);
+        return true;
     }
 }

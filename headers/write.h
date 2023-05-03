@@ -3,6 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 
-int CreateUserFile(std::string filename, std::string content);
-int AppendOnFile(std::string filename, std::string content);
+int createUserFile(std::string filename, std::string content);
+int appendOnFile(std::string filename);

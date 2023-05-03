@@ -4,6 +4,8 @@
 #include "../headers/menu_options.h"
 #include "../headers/read.h"
 #include "../headers/write.h"
+#include "../headers/state_machine.h"
+#include "../headers/delete.h"
 
 int main(/*int argc, char *argv[]*/)
 {
@@ -19,24 +21,89 @@ int main(/*int argc, char *argv[]*/)
 
     // -----------------------------------
 
+    // Implement the state machine
+    State state = State::MainMenu;
     while (true)
     {
-        int mainMenuOption = logInOrSignUp();
-
-        if (mainMenuOption == 1)
+        switch (state)
         {
-            UserLogIn();
-            writeReadOrDelete();
-
-            // append
-            // content
-            // append
-            AppendOnFile(foldername + username + ".txt");
+        case State::MainMenu:
+        {
+            Event event = logInOrSignUp();
+            if (event == Event::LOGIN)
+            {
+                state = State::Login;
+            }
+            else if (event == Event::SIGNUP)
+            {
+                state = State::SignUp;
+            }
+            else if (event == Event::EXIT)
+            {
+                exitProgram();
+            }
+            else
+            {
+                // Handle invalid input
+                invalidInput();
+            }
+            break;
         }
-        else if (mainMenuOption == 2)
+        case State::Login:
         {
-            UserSignUp();
-        };
+            if (UserLogIn())
+            {
+                state = State::ReadWriteDelete;
+            }
+            else
+            {
+                state = State::MainMenu;
+            }
+            break;
+        }
+        case State::ReadWriteDelete:
+        {
+            Event event = writeReadOrDelete(username);
+
+            if (event == Event::WRITE)
+            {
+                appendOnFile(foldername + username + ".txt");
+            }
+            else if (event == Event::READ)
+            {
+                readContent(foldername + username + ".txt", username);
+            }
+            else if (event == Event::DELETE)
+            {
+                if (deleteFile(foldername + username + ".txt", username))
+                {
+                    state = State::MainMenu;
+                };
+            }
+            else if (event == Event::LOGOUT)
+            {
+                state = State::MainMenu;
+            }
+            else
+            {
+                // Handle invalid input
+                invalidInput();
+            }
+            break;
+        }
+        case State::SignUp:
+        {
+            if (UserSignUp())
+            {
+                state = State::ReadWriteDelete;
+            }
+            else
+            {
+                state = State::MainMenu;
+            }
+            break;
+        }
+        }
     }
     return 0;
 }
