@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -Wall -Wextra -std=c++11
 LDFLAGS = -L/usr/lib/x86_64-linux-gnu
-LDLIBS = -lssl -lcrypto
+LDLIBS = -lssl -lcrypto -lsqlite3
 
 SRCDIR = source
 OBJDIR = obj

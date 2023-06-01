@@ -25,6 +25,7 @@ User::User(std::string username, std::string hashPassword, std::string firstName
                           "Content: \n";
 
     createUserFile(foldername + filename, content);
+    addUser(username, password, GetName(), age, eMail, role, content);
 
     loggedIn = true;
 }

@@ -1,0 +1,21 @@
+Compiling with G++
+
+Assuming you have saved your source code file as sqlite_test.cpp, you can compile and link it with the SQLite library using the following commands:
+
+g++ -Wall -Wextra -std=c++11 sqlite_test.cpp -o example -lsqlite3
+
+
+This command will compile sqlite_test.cpp using g++, link it with the SQLite library, and output the executable file example. 
+To run the program, you can use the following command:
+
+./example
+
+This will execute the example executable and run the program.
+Note that you need to have the SQLite library installed on your system for this to work.
+
+--------------------------------------------------------------------------------------
+makefile
+
+To use makefile in conjunction with SQLite, you should update your Makefile by adding the -lsqlite3 flag to the linker command
+
+LDLIBS = <other libraies> -lsqlite3
