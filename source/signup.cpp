@@ -100,7 +100,7 @@ bool UserSignUp()
         std::cout << "Username: ";
         std::cin >> username;
 
-        while (CheckIfUserExists(foldername + username + ".txt"))
+        while (CheckIfUserExists(username))
         {
             std::cout << "This username is not available. Try another." << std::endl;
 

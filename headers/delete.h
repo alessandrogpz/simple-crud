@@ -3,4 +3,5 @@
 #include <iostream>
 #include <string>
 
-bool deleteFile(const std::string filename, const std::string username);
+bool deleteUserContentFile(const std::string &username);
+bool deleteUserAccountAndUserContentFile(const std::string username);

@@ -4,7 +4,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sqlite3.h>
 
-int ReadFile(std::string filename);
-void readContent(std::string filename, std::string username);
-std::string readCurrentHashPassword(std::string filename);
+int readUserContentFile(const std::string &username);
+std::string readUserHashPassword(const std::string &username);

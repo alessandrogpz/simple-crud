@@ -1,6 +1,6 @@
 #include "../headers/write.h"
 
-void addUser(const std::string &username, const std::string &password, const std::string &name, int age, const std::string &email, const std::string &role, const std::string &contentLink)
+void addNewUserToDB(const std::string &username, const std::string &password, const std::string &name, int age, const std::string &email, const std::string &role, const std::string &contentLink)
 {
     sqlite3 *db;
     char *err_msg = nullptr;
@@ -67,7 +67,7 @@ void addUser(const std::string &username, const std::string &password, const std
     std::cout << "User data inserted successfully." << std::endl;
 }
 
-int createUserFile(std::string filename, std::string content)
+int createUserContentFile(std::string filename, std::string content)
 {
 
     // Open input file for writing (create a new file)

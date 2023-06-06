@@ -1,27 +1,138 @@
 #include "../headers/delete.h"
+#include "../headers/database_utils.h"
 
-bool deleteFile(const std::string filename, const std::string username)
+bool deleteUserContentFile(const std::string &username)
 {
-    std::cout << "Are you sure you want to delete " << username << "? (y/n) ";
+    std::cout << "Are you sure you want to delete all '" << username << "' files? (y/n) ";
     char confirmation;
     std::cin >> confirmation;
 
     if (confirmation == 'y' || confirmation == 'Y')
     {
-        if (std::remove(filename.c_str()) != 0)
+        // Specify the full path of the database file
+        const std::string dbPath = "../user_database/user_database.db";
+
+        // Open the database
+        sqlite3 *db = openDatabase(dbPath);
+        if (!db)
         {
-            std::cout << "Error deleting file" << std::endl;
+            std::cerr << "Error opening database: " << sqlite3_errmsg(db) << std::endl;
             return false;
+        }
+
+        // Prepare the select statement
+        const std::string select_sql = "SELECT content_link FROM users WHERE username = ?;";
+        sqlite3_stmt *stmt = prepareStatement(db, select_sql);
+        if (!stmt)
+        {
+            std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
+            closeDatabase(db);
+            return false;
+        }
+
+        // Bind the username value to the prepared statement parameter
+        sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
+
+        // Execute the prepared statement
+        int rc = sqlite3_step(stmt);
+        if (rc == SQLITE_ROW)
+        {
+            // Retrieve the content_link value
+            const unsigned char *contentLink = sqlite3_column_text(stmt, 0);
+
+            // Construct the full file path
+            std::string filePath = "../user_database/user_content_files/" + std::string(reinterpret_cast<const char *>(contentLink));
+
+            // Delete the file
+            if (std::remove(filePath.c_str()) != 0)
+            {
+                std::cout << "Error deleting file" << std::endl;
+                sqlite3_finalize(stmt);
+                closeDatabase(db);
+                return false;
+            }
+            else
+            {
+                std::cout << "File successfully deleted" << std::endl;
+            }
         }
         else
         {
-            std::cout << "File successfully deleted" << std::endl;
-            return true;
+            std::cerr << "User not found: " << username << std::endl;
+            sqlite3_finalize(stmt);
+            closeDatabase(db);
+            return false;
         }
+
+        // Finalize the statement
+        sqlite3_finalize(stmt);
+
+        // Close the database
+        closeDatabase(db);
+
+        return true;
     }
     else
     {
         std::cout << "File deletion cancelled" << std::endl;
+        return false;
+    }
+}
+
+bool deleteUserAccountAndUserContentFile(const std::string username)
+{
+    std::cout << "Are you sure you want to delete the user '" << username << "' and all its files? (y/n) ";
+    char confirmation;
+    std::cin >> confirmation;
+
+    if (confirmation == 'y' || confirmation == 'Y')
+    {
+        // Delete user content files
+        deleteUserContentFile(username);
+
+        // Delete the corresponding database entry
+        const std::string dbPath = "../user_database/user_database.db";
+        sqlite3 *db = openDatabase(dbPath);
+        if (!db)
+        {
+            std::cerr << "Error opening database: " << sqlite3_errmsg(db) << std::endl;
+            return false;
+        }
+
+        // Prepare the delete statement
+        const std::string delete_sql = "DELETE FROM users WHERE username = ?;";
+        sqlite3_stmt *stmt = prepareStatement(db, delete_sql);
+        if (!stmt)
+        {
+            std::cerr << "Error preparing statement: " << sqlite3_errmsg(db) << std::endl;
+            closeDatabase(db);
+            return false;
+        }
+
+        // Bind the username value to the prepared statement parameter
+        sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
+
+        // Execute the prepared statement
+        int rc = sqlite3_step(stmt);
+        if (rc != SQLITE_DONE)
+        {
+            std::cerr << "Error executing statement: " << sqlite3_errmsg(db) << std::endl;
+            sqlite3_finalize(stmt);
+            closeDatabase(db);
+            return false;
+        }
+
+        // Finalize the statement
+        sqlite3_finalize(stmt);
+
+        // Close the database
+        closeDatabase(db);
+
+        return true;
+    }
+    else
+    {
+        std::cout << "User deletion cancelled" << std::endl;
         return false;
     }
 }

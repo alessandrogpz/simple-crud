@@ -12,7 +12,7 @@ extern int age;
 extern std::string eMail;
 
 bool UserSignUp();
-extern std::string foldername;
+extern std::string users_content_folder;
 extern std::string username;
 extern std::string password;
 extern std::string createAccount;

@@ -1,106 +1,136 @@
 #include "../headers/read.h"
 #include "../headers/user_data.h"
+#include "../headers/database_utils.h"
 
-int ReadFile(std::string filename)
+int readUserContentFile(const std::string &username)
+/* Reads and prints the content user located in user_content_files*/
+
 {
-    // Open input file for reading
-    std::ifstream input(filename);
+    // Specify the full path of the database file
+    const std::string db_Path = "../user_database/user_database.db";
 
-    // Check if the file was opened successfully
-    if (!input.is_open())
+    // Open the database
+    sqlite3 *db = openDatabase(db_Path);
+    if (!db)
     {
-        std::cout << "Error opening file for reading " << filename << std::endl;
-        return 1;
+        return 1; // 1 to indicate failure
     }
 
-    // Ready to read file
-    std::cout << "Loading file ..." << std::endl;
-    std::cout << "Reading file: '" + filename + "'" << std::endl;
-    std::cout << "---------------------------------------" << std::endl;
+    // Prepare the select statement
+    const std::string selectSql = "SELECT content_link FROM users WHERE username = ?";
+    sqlite3_stmt *stmt = prepareStatement(db, selectSql);
 
-    // Read input from file
-    std::string line;
-    while (getline(input, line))
+    if (!stmt)
     {
-        // Process input
-        std::cout << line << std::endl;
+        closeDatabase(db);
+        return 1; // 1 to indicate failure
     }
 
-    // End of file
-    std::cout << "---------------------------------------" << std::endl;
+    // Bind the username value to the prepared statement parameter
+    sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
 
-    // Close the file
-    input.close();
+    // Execute the prepared statement
+    int rc = sqlite3_step(stmt);
+    if (rc == SQLITE_ROW)
+    {
+        // Retrieve the content_link value
+        const unsigned char *contentLink = sqlite3_column_text(stmt, 0);
+
+        // Construct the file path
+        std::string filePath = "../user_database/user_content_files/" + std::string(reinterpret_cast<const char *>(contentLink));
+
+        // Check if the file exists
+        std::ifstream file(filePath);
+        if (file)
+        {
+            // Read and process the file content
+            std::cout << "---------------------------------------" << std::endl;
+            std::cout << "Loading file ..." << std::endl;
+            std::cout << "Reading file: '" + username + "'" << std::endl;
+            std::cout << "---------------- Content --------------" << std::endl;
+
+            std::string line;
+            while (std::getline(file, line))
+            {
+                // Process input
+                std::cout << line << std::endl;
+            }
+
+            // Close the file
+
+            std::cout << "---------------------------------------" << std::endl;
+
+            // Close the file
+            file.close();
+        }
+        else
+        {
+            std::cerr << "File not found: " << filePath << std::endl;
+        }
+    }
+    else
+    {
+        std::cerr << "User not found: " << username << std::endl;
+    }
+
+    // Finalize the statement
+    sqlite3_finalize(stmt);
+
+    // Close the database
+    closeDatabase(db);
 
     return 0;
 }
 
-void readContent(const std::string filename, const std::string username)
+std::string readUserHashPassword(const std::string &username)
 {
-    /*
-    This code reads the user file line by line and checks for the line containing "Content:".
-    Once it finds that line, it sets a flag to true, indicating that it should start reading content lines.
-    For each content line, it adds the line to a vector of strings.
-    Once it has finished reading the file, it prints out the content lines.
-    */
+    // Specify the full path of the database file
+    const std::string db_Path = "../user_database/user_database.db";
 
-    std::ifstream file(filename);
-    if (!file.is_open())
+    // Open the database
+    sqlite3 *db = openDatabase(db_Path);
+    if (!db)
     {
-        std::cerr << "Error opening file" << std::endl;
-        return;
+        return ""; // Return an empty string to indicate failure
     }
 
-    // Ready to read file
-    std::cout << "---------------------------------------" << std::endl;
-    std::cout << "Loading file ..." << std::endl;
-    std::cout << "Reading file: '" + username + "'" << std::endl;
-    std::cout << "---------------- Content --------------" << std::endl;
+    // Prepare the select statement
+    const std::string selectSql = "SELECT password FROM users WHERE username = ?";
 
-    std::string line;
-    bool foundContent = false;
-    std::vector<std::string> contentLines;
-
-    while (std::getline(file, line))
+    sqlite3_stmt *stmt = prepareStatement(db, selectSql);
+    if (!stmt)
     {
-        if (foundContent)
-        {
-            // Add content lines to vector
-            contentLines.push_back(line);
-        }
-        else if (line.find("Content:") != std::string::npos)
-        {
-            foundContent = true;
-        }
+        closeDatabase(db);
+        return ""; // Return an empty string to indicate failure
     }
 
-    // Print content lines
-    for (const auto &contentLine : contentLines)
+    // Bind the username value to the prepared statement parameter
+    sqlite3_bind_text(stmt, 1, username.c_str(), -1, SQLITE_STATIC);
+
+    // Execute the prepared statement
+    int rc = sqlite3_step(stmt);
+    if (rc == SQLITE_ROW)
     {
-        std::cout << contentLine << std::endl;
+        const unsigned char *password = sqlite3_column_text(stmt, 0);
+        std::string hashedPassword(reinterpret_cast<const char *>(password));
+
+        // Finalize the statement
+        sqlite3_finalize(stmt);
+
+        // Close the database
+        closeDatabase(db);
+
+        return hashedPassword;
     }
-}
-
-std::string readCurrentHashPassword(std::string filename)
-{
-
-    // Open input file for reading
-    std::ifstream file(filename);
-
-    // Find the line with the password in the file
-    std::string line;
-    while (std::getline(file, line))
+    else
     {
-        if (line.find("Password:") != std::string::npos)
-        {
-            // Extract the password from the line
-            std::string password = line.substr(line.find(":") + 2);
+        std::cerr << "User not found: " << username << std::endl;
 
-            return password;
-        }
+        // Finalize the statement
+        sqlite3_finalize(stmt);
+
+        // Close the database
+        closeDatabase(db);
+        return ""; // Return an empty string to indicate failure
     }
-
-    // Password not found
-    std::cout << "Password not found.";
-    return "";
 }

@@ -41,8 +41,9 @@ Event writeReadOrDelete(std::string username)
     std::cout << "What would you like to do?" << std::endl;
     std::cout << "(1) Read" << std::endl
               << "(2) Write" << std::endl
-              << "(3) Delete" << std::endl
-              << "(4) Log out" << std::endl
+              << "(3) Delete Files" << std::endl
+              << "(4) Delete User & Files" << std::endl
+              << "(5) Log out" << std::endl
               << "Choose an option: ";
 
     std::cin >> userChoice;
@@ -54,8 +55,10 @@ Event writeReadOrDelete(std::string username)
     case 2:
         return Event::WRITE;
     case 3:
-        return Event::DELETE;
+        return Event::DELETE_FILES;
     case 4:
+        return Event::DELETE_USER;
+    case 5:
         return Event::LOGOUT;
     default:
         return Event::INVALID;

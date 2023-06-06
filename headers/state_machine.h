@@ -17,7 +17,8 @@ enum class Event
     BACK,
     WRITE,
     READ,
-    DELETE,
+    DELETE_FILES,
+    DELETE_USER,
     LOGOUT,
     EXIT,
     INVALID

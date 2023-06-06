@@ -67,15 +67,19 @@ int main(/*int argc, char *argv[]*/)
 
             if (event == Event::WRITE)
             {
-                appendOnFile(foldername + username + ".txt");
+                appendOnFile(users_content_folder + username + ".txt");
             }
             else if (event == Event::READ)
             {
-                readContent(foldername + username + ".txt", username);
+                readUserContentFile(username);
             }
-            else if (event == Event::DELETE)
+            else if (event == Event::DELETE_FILES)
             {
-                if (deleteFile(foldername + username + ".txt", username))
+                (deleteUserContentFile(username));
+            }
+            else if (event == Event::DELETE_USER)
+            {
+                if (deleteUserAccountAndUserContentFile(username))
                 {
                     state = State::MainMenu;
                 };

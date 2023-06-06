@@ -20,7 +20,7 @@ bool UserLogIn()
         std::cout << "Password: ";
         std::cin >> password;
 
-        if (!(CheckIfUserExists(foldername + username + ".txt")) || !(passwordAuthenticate(password)))
+        if (!(CheckIfUserExists(username)) || !(passwordAuthenticate(password)))
         {
             std::cout << "---------------------------------------" << std::endl;
             std::cout << "Username or password do not match" << std::endl;

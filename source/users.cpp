@@ -15,17 +15,11 @@ User::User(std::string username, std::string hashPassword, std::string firstName
     this->role = role;
 
     // Write user information to file
-    std::string filename = username + ".txt";
-    std::string content = "Username: " + GetUsername() + "\n" +
-                          "Password: " + GetPassword() + "\n" +
-                          "Name: " + GetName() + "\n" +
-                          "Age: " + std::to_string(GetAge()) + "\n" +
-                          "Email: " + eMail + "\n" +
-                          "Role: " + GetRole() + "\n" +
-                          "Content: \n";
+    std::string content_filename = username + ".txt";
+    std::string content = "";
 
-    createUserFile(foldername + filename, content);
-    addUser(username, password, GetName(), age, eMail, role, content);
+    createUserContentFile(users_content_folder + content_filename, content);
+    addNewUserToDB(username, password, GetName(), age, eMail, role, content_filename);
 
     loggedIn = true;
 }
