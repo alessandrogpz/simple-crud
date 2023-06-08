@@ -3,7 +3,7 @@
 #include "../headers/database_utils.h"
 
 int readUserContentFile(const std::string &username)
-/* Reads and prints the content user located in user_content_files*/
+/* Reads and prints the user content located in user_content_files*/
 
 {
     // Specify the full path of the database file

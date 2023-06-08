@@ -6,10 +6,10 @@
 #include "../headers/write.h"
 #include "../headers/state_machine.h"
 #include "../headers/delete.h"
+#include "../headers/database_utils.h"
 
 int main(/*int argc, char *argv[]*/)
 {
-
     // Check to see if the arguments were correctly passed
     // if (argc != 2)
     // {

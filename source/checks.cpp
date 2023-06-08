@@ -69,6 +69,7 @@ bool CheckIfUserExists(const std::string &username)
     }
 }
 
+// Check if user inserted email is of a valid format
 bool isValidEmail(const std::string &email)
 {
     // Regular expression for a valid email address
@@ -78,6 +79,7 @@ bool isValidEmail(const std::string &email)
     return std::regex_match(email, pattern);
 }
 
+// Check if user inserted password if the same as the one stored in the database
 bool passwordAuthenticate(const std::string &password)
 {
     extern std::string username;

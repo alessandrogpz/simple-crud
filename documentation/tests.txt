@@ -1,0 +1,8 @@
+Run the tests by executing the command 'make test' in your project's root directory. 
+
+To ensure that all tests are always correctly executed, always execute "make clean", then "make test" everytime one wants to execute a test. 
+
+in addition to the test target, there are two new targets test_simple_test_1 and test_simple_test_2. 
+For example: Running 'make test_simple_test_1' will compile and execute only the simple_test_1.cpp file, 
+and running 'make test_simple_test_2' will compile and execute only the simple_test_2.cpp file. 
+You can add more test targets as needed for other test files.
