@@ -16,9 +16,8 @@ User::User(std::string username, std::string hashPassword, std::string firstName
 
     // Write user information to file
     std::string content_filename = username + ".txt";
-    std::string content = "";
 
-    createUserContentFile(users_content_folder + content_filename, content);
+    createUserContentFile(users_content_folder + content_filename);
     addNewUserToDB(username, password, GetName(), age, eMail, role, content_filename);
 
     loggedIn = true;

@@ -27,7 +27,7 @@ void createUsersTable(sqlite3 *db)
 
     // Execute the SQL statement
     char *errMsg = nullptr;
-    int rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
+    rc = sqlite3_exec(db, sql, nullptr, nullptr, &errMsg);
     if (rc != SQLITE_OK)
     {
         std::cerr << "Error creating users table: " << errMsg << std::endl;

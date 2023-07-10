@@ -8,7 +8,7 @@ obj/*
 !bin/.gitkeep 
 !user_database/.gitkeep
 !obj/.gitkeep
-!user_database/user_content_files/ .gitkeep
+!user_database/user_content_files/.gitkeep
 
 # Local History for Visual Studio Code
 .history/

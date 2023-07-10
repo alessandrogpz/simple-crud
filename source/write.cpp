@@ -67,7 +67,7 @@ void addNewUserToDB(const std::string &username, const std::string &password, co
     std::cout << "User data inserted successfully." << std::endl;
 }
 
-int createUserContentFile(std::string filename, std::string content)
+int createUserContentFile(std::string filename)
 {
 
     // Open input file for writing (create a new file)
@@ -79,9 +79,6 @@ int createUserContentFile(std::string filename, std::string content)
         std::cout << "Error opening file " << filename << " for writing " << std::endl;
         return 1;
     }
-
-    // Write on file
-    outfile << content;
 
     // Close input file
     outfile.close();
