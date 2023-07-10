@@ -2,11 +2,10 @@
 
 # exclude everything
 bin/*
-user_database/*
+user_database/user_content_files/*
 obj/*
 # exception to the rule
 !bin/.gitkeep 
-!user_database/.gitkeep
 !obj/.gitkeep
 !user_database/user_content_files/.gitkeep
 
@@ -15,3 +14,6 @@ obj/*
 
 # Built Visual Studio Code Extensions
 *.vsix
+
+# Exclude DB
+*.db
